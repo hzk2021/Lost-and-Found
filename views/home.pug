@@ -1,0 +1,20 @@
+extends layout
+
+block layout-content
+    div.bg-light.border.p-5
+        p.display-6 Lost or found something?
+        p If so, you've come to the right place!
+        
+    div.container.m-5
+        div.row
+            div.col-md-6.d-flex.flex-column
+                h2.text-decoration-underline Found item
+                p If you wish to report a found item, please click on the link below. 
+                p Afterwhich, please head down to i@Central to handover the item.
+                p.mt-auto: a.btn.btn-secondary(href="item/found" role="button") Report Item &raquo;
+        
+            div.col-md-6
+                h2.text-decoration-underline Lost item
+                p You may look for a lost item via the link below. 
+                p Alternatively, you may email us at contactNYP@nyp.edu.sg to report a lost item
+                p.mt-auto: a.btn.btn-secondary(href="item/list" role="button") View Items &raquo;

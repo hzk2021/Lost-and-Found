@@ -1,0 +1,7 @@
+/* public/style.css */
+
+
+img {
+    object-fit: contain;
+    max-height: 250px;
+}
