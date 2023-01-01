@@ -11,6 +11,8 @@ const item = require("./routes/item.js");
 const account = require("./routes/account.js");
 const bodyParser = require('body-parser');
 const session = require('express-session');
+const sqlDB = require('./configs/dbConnection')
+
 /**
  * App Variables
  */
@@ -33,6 +35,8 @@ app.use(session({
     saveUninitialized: true,
     cookie: {maxAge: (1000 * 60 * 60 * 24)}
 }));
+
+sqlDB.InitSchema(false);
 
 /**
  * Routes Definitions

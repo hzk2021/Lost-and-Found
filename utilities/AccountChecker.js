@@ -12,3 +12,6 @@ const isLoggedIn = function (req,res,next) {
         return res.redirect('/account/login');
     }
 }
+
+
+module.exports = {isLoggedIn}
