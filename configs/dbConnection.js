@@ -1,5 +1,6 @@
 const DB = require('./database');
 const mariaDB = require('mariadb');
+const ItemModel = require('../models/Item');
 
 const InitSchema = async function(drop) {
     const pool = mariaDB.createPool({
@@ -13,9 +14,11 @@ const InitSchema = async function(drop) {
 
     try {
         conn = await pool.getConnection();
-        await conn.query('CREATE DATABASE LostnFound')
-            .then((res) => {
+        await conn.query('CREATE DATABASE IF NOT EXISTS LostnFound;')
+            .then(() => {
                 DB.sequelize.authenticate();
+                ItemModel.Item.sync();
+                DB.sequelize.sync({force: drop})
                 console.log("Database connected");
             });
 

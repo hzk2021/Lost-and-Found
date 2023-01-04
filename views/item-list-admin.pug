@@ -4,40 +4,20 @@ block layout-content
   div.Main
     h1.m-3 Manage reported items
 
+    if items.length == 0
+        p No item has been reported yet.
+
     div.items.d-flex.flex-wrap.justify-content-center
-        div.card.w-25.m-1
-            div.card-body.d-flex.flex-column.gap-2
-                img.card-img-top(src="https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_2000,h_2000/global/075103/01/fnd/SEA/fmt/png/Pioneer-Backpack-II", alt="").h-75
-                
-                div.mt-auto.d-flex.flex-column
-                    h5.card-title Puma Black Backpack
-                    h6.card-subtitle.mb-2.text-muted Found: 30 December 2022
-                    a(class="btn btn-danger" href = "/list") Remove/Claimed
-        div.card.w-25.m-1
-            div.card-body.d-flex.flex-column.gap-2
-                img.card-img-top(src="https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/mbp-spacegray-select-202206?wid=904&hei=840&fmt=jpeg&qlt=90&.v=1664497359481", alt="").h-75
 
-                div.mt-auto.d-flex.flex-column
-                    h5.card-title Apple Macbook Pro
-                    h6.card-subtitle.mb-2.text-muted Found: 02 January 2023
-                    a(class="btn btn-danger" href = "/list") Remove/Claimed
-
-        div.card.w-25.m-1
-            div.card-body.d-flex.flex-column.gap-2
-                img.card-img-top(src="https://media.istockphoto.com/id/670498344/vector/singaporean-dollar-bills.jpg?s=612x612&w=0&k=20&c=W1DN6Gk8KcEzheuQYkEv-xBWFAzbTfdLbOj_pQ0j6yU=", alt="").h-75
-
-                div.mt-auto.d-flex.flex-column
-                    h5.card-title Wad of Cash
-                    h6.card-subtitle.mb-2.text-muted Found: 05 January 2023
-                    a(class="btn btn-danger mt-auto" href = "/list") Remove/Claimed
-
-        div.card.w-25.m-1
-            div.card-body.d-flex.flex-column.gap-2
-                img.card-img-top(src="https://images-fe.ssl-images-amazon.com/images/I/91d-77kn-dL._AC_UL600_SR600,600_.jpg", alt="").h-75
-
-                div.mt-auto.d-flex.flex-column
-                    h5.card-title Game of Throne Book
-                    h6.card-subtitle.mb-2.text-muted Found: 07 January 2023
-                    a(class="btn btn-danger mt-auto" href = "/list") Remove/Claimed
-
+        each item in items 
+            div.card.w-25.m-1
+                div.card-body.d-flex.flex-column.gap-2
+                    img.card-img-top(src="https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/mbp-spacegray-select-202206?wid=904&hei=840&fmt=jpeg&qlt=90&.v=1664497359481", alt="").h-75
+                        
+                    div.mt-auto.d-flex.flex-column
+                        h5.card-title.mb-3 #{item.Name}
+                        h6.card-subtitle.mb-3.text-muted Description: #{item.Description}
+                        h6.card-subtitle.mb-2.text-muted Found: #{item.DateReported}
+                        form(action=`/item/delete/${item.ItemID}` method="POST")
+                            button(type="submit" class="btn btn-danger") Remove/Claimed
 
