@@ -47,4 +47,15 @@ const getImageObject = function(objectKey, callback) {
     return imageBase64;
 };
 
-module.exports = {bucketParams, createBucket, uploadObject, getImageObject};
+const deleteImageObject = function(objectKey) {
+    s3.deleteObject({
+        Bucket: bucketParams.Bucket,
+        Key: objectKey,
+    }, (err,data) => {
+        if(err) console.log(err);
+        console.log(data);
+        
+    });
+}
+
+module.exports = {bucketParams, createBucket, uploadObject, getImageObject, deleteImageObject};

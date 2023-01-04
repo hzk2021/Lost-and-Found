@@ -21,7 +21,7 @@ app.post("/create", upload.single('itemImage'), async (req,res) => {
         ItemID: itemUUID,
         Name: req.body.itemName,
         Description: req.body.itemDescription,
-        ImageS3Url: `${s3Bucket.bucketParams.Bucket}/${objectKey}`,
+        ImageS3Url: `${s3Bucket.bucketParams.Bucket}/${objectKey}.png`,
     })
     
     if (createItem)
@@ -39,7 +39,8 @@ app.post("/delete/:uuid", async (req, res) => {
     const foundItem = await Item.findByPk(item_uuid);
 
     if (foundItem)
-        //foundItem.destroy();
+        s3Bucket.deleteImageObject(foundItem.ItemID + foundItem.Name + ".png");
+        foundItem.destroy();
         console.log("item uploaded");
 
     const allItems = await Item.findAll();
@@ -53,18 +54,21 @@ app.get("/list", async (req,res) => {
 
     console.log(allItems);
 
-    for (let i = 0; i < allItems.length; i++) {
-        s3Bucket.getImageObject(`${allItems[i].ItemID}${allItems[i].Name}.png`, (imageData) => {
-            allItems[i].imageBase64 = Buffer.from(imageData.Body).toString('base64');  
-            console.log(allItems['test'] = "test");
+    if (allItems.length > 0){
+        for (let i = 0; i < allItems.length; i++) {
+            s3Bucket.getImageObject(`${allItems[i].ItemID}${allItems[i].Name}.png`, (imageData) => {
+                allItems[i].imageBase64 = Buffer.from(imageData.Body).toString('base64');  
 
-            if (i + 1 == allItems.length) {
-                if (req.session.user) return res.render("item-list-admin", { title: "Reported Items", items: allItems});
-                else return res.render("item-list-public", { title: "Reported Items", items: allItems});
-            }   
-        });
+                if (i + 1 == allItems.length) {
+                    if (req.session.user) return res.render("item-list-admin", { title: "Reported Items", items: allItems});
+                    else return res.render("item-list-public", { title: "Reported Items", items: allItems});
+                }   
+            });
+        }
+    }else {
+        if (req.session.user) return res.render("item-list-admin", { title: "Reported Items", items: allItems});
+        else return res.render("item-list-public", { title: "Reported Items", items: allItems});
     }
-
 
 });
 
