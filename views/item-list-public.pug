@@ -12,7 +12,7 @@ block layout-content
         each item in items 
             div.card.w-25.m-1
                 div.card-body.d-flex.flex-column.gap-2
-                    img.card-img-top(src="https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/mbp-spacegray-select-202206?wid=904&hei=840&fmt=jpeg&qlt=90&.v=1664497359481", alt="").h-75
+                    img.card-img-top(src="data:image/png;base64," + item.imageBase64, alt="").h-75
                         
                     div.mt-auto.d-flex.flex-column
                         h5.card-title.mb-3 #{item.Name}

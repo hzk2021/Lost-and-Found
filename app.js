@@ -11,8 +11,8 @@ const item = require("./routes/item.js");
 const account = require("./routes/account.js");
 const bodyParser = require('body-parser');
 const session = require('express-session');
-const sqlDB = require('./configs/dbConnection')
-
+const sqlDB = require('./configs/dbConnection');
+const s3Bucket = require('./configs/s3bucket');
 /**
  * App Variables
  */
@@ -37,6 +37,7 @@ app.use(session({
 }));
 
 sqlDB.InitSchema(false);
+s3Bucket.createBucket();
 
 /**
  * Routes Definitions

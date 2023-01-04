@@ -2,18 +2,28 @@ const express = require("express");
 const {Item} = require('../models/Item');
 
 const app = express();
+const multer = require('multer');
+const upload = multer();
+const s3Bucket = require('../configs/s3bucket');
+const { v4: uuidv4 } = require('uuid');
 
 app.get("/create", (req,res) => {
     res.render("create-item", {title: "Create Item"})
 });
 
-app.post("/create", async (req,res) => {
+app.post("/create", upload.single('itemImage'), async (req,res) => {
+    const itemUUID = uuidv4();
+    const objectKey = itemUUID.toString() + req.body.itemName;
+
+    s3Bucket.uploadObject(`${objectKey}.png`, Buffer.from(req.file.buffer, "binary"));
+
     const createItem = await Item.create({
+        ItemID: itemUUID,
         Name: req.body.itemName,
         Description: req.body.itemDescription,
-        ImageS3Url: "url1",
-
+        ImageS3Url: `${s3Bucket.bucketParams.Bucket}/${objectKey}`,
     })
+    
     if (createItem)
         console.log("item uploaded");
 
@@ -29,7 +39,7 @@ app.post("/delete/:uuid", async (req, res) => {
     const foundItem = await Item.findByPk(item_uuid);
 
     if (foundItem)
-        foundItem.destroy();
+        //foundItem.destroy();
         console.log("item uploaded");
 
     const allItems = await Item.findAll();
@@ -39,16 +49,23 @@ app.post("/delete/:uuid", async (req, res) => {
 });
 
 app.get("/list", async (req,res) => {
-    if (req.session.user) {
-        const allItems = await Item.findAll();
-        console.log(allItems);
-        res.render("item-list-admin", { title: "Reported Items", items: allItems});
+    let allItems = await Item.findAll();
+
+    console.log(allItems);
+
+    for (let i = 0; i < allItems.length; i++) {
+        s3Bucket.getImageObject(`${allItems[i].ItemID}${allItems[i].Name}.png`, (imageData) => {
+            allItems[i].imageBase64 = Buffer.from(imageData.Body).toString('base64');  
+            console.log(allItems['test'] = "test");
+
+            if (i + 1 == allItems.length) {
+                if (req.session.user) return res.render("item-list-admin", { title: "Reported Items", items: allItems});
+                else return res.render("item-list-public", { title: "Reported Items", items: allItems});
+            }   
+        });
     }
-    else {
-        const allItems = await Item.findAll();
-        console.log(allItems);
-        return res.render("item-list-public", { title: "Reported Items", items: allItems});
-    }
+
+
 });
 
 app.get("/lost", (req,res) => {

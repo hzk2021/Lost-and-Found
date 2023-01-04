@@ -2,14 +2,19 @@ extends layout
 
 block layout-content
     main.form-signin-mx-auto.d-flex.justify-content-center
-        form(action="/item/create", method="POST") 
+        form(action="/item/create", method="POST" enctype="multipart/form-data") 
             h1.h3.mt-4.mb-4.fw-normal Upload Item
             div.form-floating
                 input.form-control#floatingName(type="text", placeholder="Item Name", name="itemName").rounded-0
                 label(for="floatingName") Name 
+
             div.form-floating.mb-4
                 textarea.form-control#floatingDescription(placeholder="Item Description", name="itemDescription", rows="5", cols="50").rounded-0
                 label(for="floatingDescription") Description 
+
+            div.form-floating.mb-4
+                input.form-control#itemImage(placeholder="Item Image", name="itemImage", type="file").rounded-0
+                label(for="itemImage") Image 
 
             div.mb-3
                 button.w-100.btn.btn-lg.btn-primary(type="submit") Upload
