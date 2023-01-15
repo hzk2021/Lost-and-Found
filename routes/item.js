@@ -30,7 +30,8 @@ app.post("/create", upload.single('itemImage'), async (req,res) => {
     const allItems = await Item.findAll();
     console.log(allItems);
 
-    return res.render("item-list-admin", { title: "Reported Items", items: allItems});
+    return res.redirect("/item/list");
+    // return res.render("item-list-admin", { title: "Reported Items", items: allItems});
 });
 
 app.post("/delete/:uuid", async (req, res) => {
