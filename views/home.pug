@@ -4,16 +4,17 @@ block layout-content
     div.bg-light.border.p-5
         p.display-6 Lost or found something?
         p If so, you've come to the right place!
-        
-    div.container.m-5
-        div.row
-            div.col-md-6.d-flex.flex-column
+
+    div.items.d-flex.flex-wrap.justify-content-center
+        div.card.w-43.m-1.border-0
+            div.card-body.d-flex.flex-column.gap-2
                 h2.text-decoration-underline Found item
                 p If you wish to report a found item, please click on the link below. 
                 p Afterwhich, please head down to i@Central to handover the item.
-                p.mt-auto: a.btn.btn-secondary(href="item/found" role="button") Report Item &raquo;
-        
-            div.col-md-6
+                p.mt-auto: a.btn.btn-secondary(href="https://www.google.com/maps/place/I@Central/@1.3800589,103.8462154,17z/data=!3m2!4b1!5s0x31da16ec8b58ef89:0xa43a61e13f56bc7d!4m5!3m4!1s0x31da16eba6ffffff:0x7adcef88c4807c97!8m2!3d1.3800589!4d103.8484041" role="button") See Map &raquo;
+
+        div.card.w-43.m-1.border-0
+            div.card-body.d-flex.flex-column.gap-2
                 h2.text-decoration-underline Lost item
                 p You may look for a lost item via the link below. 
                 p Alternatively, you may email us at contactNYP@nyp.edu.sg to report a lost item
