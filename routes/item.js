@@ -16,23 +16,26 @@ app.post("/create", upload.single('itemImage'), async (req,res) => {
     const itemUUID = uuidv4();
     const objectKey = itemUUID.toString() + req.body.itemName;
 
-    s3Bucket.uploadObject(`${objectKey}.png`, Buffer.from(req.file.buffer, "binary"));
+    const itemName = req.body.itemName;
+    const itemDescription = req.body.itemDescription;
 
+    s3Bucket.uploadObject(`${objectKey}.png`, Buffer.from(req.file.buffer, "binary"), {
+        ItemID: itemUUID,
+        ItemName: itemName,
+        ItemDescription: itemDescription
+    });
+    
     const createItem = await Item.create({
         ItemID: itemUUID,
-        Name: req.body.itemName,
-        Description: req.body.itemDescription,
+        Name: itemName,
+        Description: itemDescription,
         ImageS3Url: `${s3Bucket.bucketParams.Bucket}/${objectKey}.png`,
     })
     
     if (createItem)
         console.log("item uploaded");
 
-    const allItems = await Item.findAll();
-    console.log(allItems);
-
     return res.redirect("/item/list");
-    // return res.render("item-list-admin", { title: "Reported Items", items: allItems});
 });
 
 app.post("/delete/:uuid", async (req, res) => {
@@ -45,10 +48,7 @@ app.post("/delete/:uuid", async (req, res) => {
         foundItem.destroy();
         console.log("item uploaded");
 
-    const allItems = await Item.findAll();
-    console.log(allItems);
-
-    return res.render("item-list-admin", { title: "Reported Items", items: allItems});
+    return res.redirect("/item/list");
 });
 
 app.get("/list", async (req,res) => {
