@@ -8,6 +8,7 @@ const express = require("express");
 const path = require("path");
 
 const item = require("./routes/item.js");
+const notification = require("./routes/notification.js");
 const account = require("./routes/account.js");
 const bodyParser = require('body-parser');
 const session = require('express-session');
@@ -54,6 +55,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/item", item);
+app.use("/notification", notification);
 app.use("/account", account);
 /**
  * Server Activation

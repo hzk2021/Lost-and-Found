@@ -1,0 +1,21 @@
+extends layout
+
+block layout-content
+    main.form-signin-mx-auto.d-flex.justify-content-center
+        form(action="/notification/subscribe", method="post") 
+            img.mb-4.mt-5(src="http://www.nyp.edu.sg/content/dam/nyp/logo.png", alt="nyp-image")
+            h1.h3.mb-4.fw-normal Subscribe
+            div.form-floating
+                input.form-control#floatingInput(type="email", placeholder="name@example.com", name="email").rounded-0
+                label(for="floatingInput") Email Address 
+
+            #message 
+                if message
+                    h4.text-success #{message}
+                    
+            #error 
+                if error
+                    h4.text-danger #{error}
+
+            div.mb-3
+                button.w-100.btn.btn-lg.btn-primary(type="submit") Confirm
