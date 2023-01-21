@@ -7,7 +7,14 @@ block layout-content
     if items.length == 0
         p No item has been reported yet.
 
-    a(href="/item/create", class="btn btn-primary") Add 
+    a(href="/item/create", class="btn btn-primary mb-3") Add 
+
+
+    form(action="/item/search", method="GET").my-2.my-lg-0
+        .input-group.mb-3.w-25.mx-auto
+            input.form-control.mr-sm-2(type='search', placeholder='Search for item', aria-label='Search' name="search")
+            .input-group-append
+                button.btn.btn-outline-primary.my-2.my-sm-0(type='submit') Search
 
     div.items.d-flex.flex-wrap.justify-content-center
 
