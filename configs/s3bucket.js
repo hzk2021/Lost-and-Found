@@ -4,7 +4,7 @@ var bucketParams = {
     Bucket: process.env.S3_BUCKET_NAME, // Other polytechnics would need to update this on their web environment
 };
 
-AWS.config.update({region: 'us-east-1'});
+AWS.config.update({region: process.env.AWS_REGION});
 
 var s3 = new AWS.S3({apiVersion: '2006-03-01'});
 

@@ -2,6 +2,8 @@ const AWS = require('aws-sdk');
 
 var sns = new AWS.SNS();
 
+AWS.config.update({region: process.env.AWS_REGION});
+
 var snsParams = {
     Protocol: "email",
     TopicArn: process.env.SNS_TOPIC_ARN
