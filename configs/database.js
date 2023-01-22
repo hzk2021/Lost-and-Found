@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 
 const dbConfig = {
-    host: 'it3122-db-instance.chgphrc7nwu8.us-east-1.rds.amazonaws.com',
+    host: process.env.DB_HOST, // Other polytechnics would need to update this on their web environment
     database: 'LostnFound',
     username: 'admin',
     password: 'password',

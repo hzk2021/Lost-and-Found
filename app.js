@@ -38,7 +38,7 @@ app.use(session({
 }));
 
 sqlDB.InitSchema(false);
-s3Bucket.createBucket();
+//s3Bucket.createBucket();
 
 /**
  * Routes Definitions

@@ -1,7 +1,7 @@
 const AWS = require('aws-sdk');
 
 var bucketParams = {
-    Bucket: "it3122-bucket-item-images-zhenkai",
+    Bucket: process.env.S3_BUCKET_NAME, // Other polytechnics would need to update this on their web environment
 };
 
 AWS.config.update({region: 'us-east-1'});
