@@ -4,7 +4,7 @@ const dbConfig = {
     host: process.env.DB_HOST, // Other polytechnics would need to update this on their web environment
     database: 'LostnFound',
     username: 'admin',
-    password: process.env.DB_PASSWORD,
+    password: 'password',
     port: 3306
 }
 
