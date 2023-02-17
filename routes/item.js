@@ -19,7 +19,7 @@ app.post("/create", upload.single('itemImage'), async (req,res) => {
     const itemName = req.body.itemName;
     const itemDescription = req.body.itemDescription;
 
-    s3Bucket.uploadObject(`${objectKey}.png`, Buffer.from(req.file.buffer, "binary"), {
+    await s3Bucket.uploadObject(`${objectKey}.png`, Buffer.from(req.file.buffer, "binary"), {
         ItemID: itemUUID,
         ItemName: itemName,
         ItemDescription: itemDescription
@@ -58,6 +58,7 @@ app.get("/list", async (req,res) => {
 
     if (allItems.length > 0){
         for (let i = 0; i < allItems.length; i++) {
+            // console.log(i);
             let imageBase64 = await s3Bucket.getImageObject(`${allItems[i].ItemID}${allItems[i].Name}.png`).then(data => {
                 return Buffer.from(data).toString('base64');  
             });

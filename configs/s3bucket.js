@@ -22,17 +22,21 @@ const createBucket = function() {
 };
 
 const uploadObject = function(objectKey, data, meta_data) {
-    s3.upload({
-        Bucket: bucketParams.Bucket,
-        Key: objectKey,
-        Body: data,
-        Metadata: {
-            "ItemID": meta_data.ItemID,
-            "ItemName": meta_data.ItemName,
-            "ItemDescription": meta_data.ItemDescription
-        }
-    }, (err,data) => {
-        console.log(err, data);
+
+    return new Promise(function (resolve, reject){
+        s3.upload({
+            Bucket: bucketParams.Bucket,
+            Key: objectKey,
+            Body: data,
+            Metadata: {
+                "ItemID": meta_data.ItemID,
+                "ItemName": meta_data.ItemName,
+                "ItemDescription": meta_data.ItemDescription
+            }
+        }, (err,data) => {
+            console.log(err, data);
+            resolve();
+        });
     });
 };
 
