@@ -1,1 +1,1 @@
-DB_HOST="it3122cdkstack-it3122rdsinstance6831a30f-ksuhztslb5wb.c2sr7y93wkcs.us-west-2.rds.amazonaws.com" S3_BUCKET_NAME="it3122-bucket-item-images-zhenkai-cdk" SNS_TOPIC_ARN="arn:aws:sns:us-west-2:785468729059:LostItemNotification" AWS_REGION="us-west-2" node app.js
+DB_HOST="it3122-db-instance.chgphrc7nwu8.us-east-1.rds.amazonaws.com" S3_BUCKET_NAME="it3122-bucket-item-images-zhenkai" SNS_TOPIC_ARN="arn:aws:sns:us-east-1:241830745514:ReportedItemsNotification" AWS_REGION="us-east-1" node app.js

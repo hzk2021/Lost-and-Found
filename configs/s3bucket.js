@@ -36,20 +36,17 @@ const uploadObject = function(objectKey, data, meta_data) {
     });
 };
 
-const getImageObject = function(objectKey, callback) {
+const getImageObject = function(objectKey) {
 
-    let imageBase64 = "";
-
-    s3.getObject({
-        Bucket: bucketParams.Bucket,
-        Key: objectKey,
-    }, (err,data) => {
-        if(err) console.log(err);
-        callback(data);
-        
+    return new Promise(function (resolve, reject) {
+        s3.getObject({
+            Bucket: bucketParams.Bucket,
+            Key: objectKey,
+        }, (err,data) => {
+            if(err) console.log(err); 
+            resolve(data.Body)       
+        });
     });
-
-    return imageBase64;
 };
 
 const deleteImageObject = function(objectKey) {

@@ -54,18 +54,21 @@ app.post("/delete/:uuid", async (req, res) => {
 app.get("/list", async (req,res) => {
     let allItems = await Item.findAll();
 
-    console.log(allItems);
+    // console.log(allItems);
 
     if (allItems.length > 0){
         for (let i = 0; i < allItems.length; i++) {
-            s3Bucket.getImageObject(`${allItems[i].ItemID}${allItems[i].Name}.png`, (imageData) => {
-                allItems[i].imageBase64 = Buffer.from(imageData.Body).toString('base64');  
-
-                if (i + 1 == allItems.length) {
-                    if (req.session.user) return res.render("item-list-admin", { title: "Reported Items", items: allItems});
-                    else return res.render("item-list-public", { title: "Reported Items", items: allItems});
-                }   
+            let imageBase64 = await s3Bucket.getImageObject(`${allItems[i].ItemID}${allItems[i].Name}.png`).then(data => {
+                return Buffer.from(data).toString('base64');  
             });
+
+            allItems[i].imageBase64 = imageBase64;
+
+
+            if (i + 1 == allItems.length) {
+                if (req.session.user) return res.render("item-list-admin", { title: "Reported Items", items: allItems});
+                else return res.render("item-list-public", { title: "Reported Items", items: allItems});
+            }  
         }
     }else {
         if (req.session.user) return res.render("item-list-admin", { title: "Reported Items", items: allItems});
@@ -93,14 +96,17 @@ app.get("/search", async (req,res, next) => {
 
     if (allItems.length > 0){
         for (let i = 0; i < allItems.length; i++) {
-            s3Bucket.getImageObject(`${allItems[i].ItemID}${allItems[i].Name}.png`, (imageData) => {
-                allItems[i].imageBase64 = Buffer.from(imageData.Body).toString('base64');  
-
-                if (i + 1 == allItems.length) {
-                    if (req.session.user) return res.render("item-list-admin", { title: "Reported Items", items: allItems});
-                    else return res.render("item-list-public", { title: "Reported Items", items: allItems});
-                }   
+            let imageBase64 = await s3Bucket.getImageObject(`${allItems[i].ItemID}${allItems[i].Name}.png`).then(data => {
+                return Buffer.from(data).toString('base64');  
             });
+
+            allItems[i].imageBase64 = imageBase64;
+
+
+            if (i + 1 == allItems.length) {
+                if (req.session.user) return res.render("item-list-admin", { title: "Reported Items", items: allItems});
+                else return res.render("item-list-public", { title: "Reported Items", items: allItems});
+            }  
         }
     }else {
         if (req.session.user) return res.render("item-list-admin", { title: "Reported Items", items: allItems});
