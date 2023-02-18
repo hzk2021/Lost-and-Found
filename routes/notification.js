@@ -12,7 +12,7 @@ app.post("/subscribe", (req,res) => {
     const userEmail = req.body.email;
     snsService.subscribeToTopic(userEmail);
 
-    return res.render("subscribe", {message: "A verification email has been sent to you!"});
+    return res.render("subscribe", {message: "A confirmation email has been sent to you!"});
 });
 
 module.exports = app;
