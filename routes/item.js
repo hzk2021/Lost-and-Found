@@ -8,6 +8,8 @@ const s3Bucket = require('../configs/s3bucket');
 const { v4: uuidv4 } = require('uuid');
 const {Op, Model, where} = require('sequelize');
 
+const snsService = require('../configs/snsService');
+
 app.get("/create", (req,res) => {
     res.render("create-item", {title: "Create Item"})
 });
@@ -34,6 +36,7 @@ app.post("/create", upload.single('itemImage'), async (req,res) => {
     
     if (createItem)
         console.log("item uploaded");
+        snsService.sendEmailToSubscribers(`Hello! This is a notification informing you that an item was recently reported! \n\n Item Name: ${itemName} \n\n Item Description: ${itemDescription}`)
 
     return res.redirect("/item/list");
 });

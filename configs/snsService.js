@@ -21,4 +21,14 @@ const subscribeToTopic = function(email) {
     );
 };
 
-module.exports = {subscribeToTopic};
+const sendEmailToSubscribers = async function(message) {
+    const params = {
+        Message: message,
+        TopicArn: snsParams.TopicArn
+    };
+
+    const result = await sns.publish(params).promise();
+    console.log(result + " email sent ");
+};
+
+module.exports = {subscribeToTopic, sendEmailToSubscribers};
