@@ -16,5 +16,9 @@ block layout-content
                 input.form-control#itemImage(placeholder="Item Image", name="itemImage", type="file").rounded-0
                 label(for="itemImage") Image 
 
+            #error 
+                if error
+                    h4.text-danger #{error}
+
             div.mb-3
                 button.w-100.btn.btn-lg.btn-primary(type="submit") Upload

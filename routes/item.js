@@ -9,6 +9,7 @@ const { v4: uuidv4 } = require('uuid');
 const {Op, Model, where} = require('sequelize');
 
 const snsService = require('../configs/snsService');
+const rekognitionService = require('../configs/rekognitionModeration');
 
 app.get("/create", (req,res) => {
     res.render("create-item", {title: "Create Item"})
@@ -20,6 +21,12 @@ app.post("/create", upload.single('itemImage'), async (req,res) => {
 
     const itemName = req.body.itemName;
     const itemDescription = req.body.itemDescription;
+
+    let isInappropriate = await rekognitionService.isInappropriate(Buffer.from(req.file.buffer, "binary"));
+
+    if (isInappropriate) {
+        return res.render("create-item", {title: "Create Item", error: "Image contains inappropriate contain!" })
+    }
 
     await s3Bucket.uploadObject(`${objectKey}.png`, Buffer.from(req.file.buffer, "binary"), {
         ItemID: itemUUID,
