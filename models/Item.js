@@ -32,6 +32,6 @@ Item.init( {
 }
 );
 
-Item.sync();
+// Item.sync();
 
 module.exports = {Item};

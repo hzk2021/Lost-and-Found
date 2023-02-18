@@ -4,6 +4,7 @@ var rekognition = new AWS.Rekognition();
 
 const isInappropriate = async function(buffer) {
 
+    const resizedImageBuffer = await sharp
     const params = {
         Image: {
             Bytes: buffer
