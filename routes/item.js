@@ -25,7 +25,7 @@ app.post("/create", upload.single('itemImage'), async (req,res) => {
     let isInappropriate = await rekognitionService.isInappropriate(Buffer.from(req.file.buffer, "base64"));
 
     if (isInappropriate) {
-        return res.render("create-item", {title: "Create Item", error: "Image contains inappropriate contain!" })
+        return res.render("create-item", {title: "Create Item", error: "Image contains inappropriate content!" })
     }
 
     await s3Bucket.uploadObject(`${objectKey}.png`, Buffer.from(req.file.buffer, "binary"), {
