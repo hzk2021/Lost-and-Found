@@ -7,6 +7,9 @@
         <img src="https://img.shields.io/static/v1?label=&message=Pug&color=A86454&style=for-the-badge&logo=pug&logoColor=white&logoWidth=&labelColor=&link=">
         <br>
     </h1>
+
+	<h3><b><a href="https://www.youtube.com/watch?v=4UNfe44Vjfk">View Demo (Notification)</a></b></h3>
+ 	<h3><b><a href="https://www.youtube.com/watch?v=O4q2BlnYkHE">View Demo (Infrastructure as Code)</a></b></h3>
 </div>
 
 ## Description
