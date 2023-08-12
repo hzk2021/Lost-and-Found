@@ -7,7 +7,6 @@
         <img src="https://img.shields.io/static/v1?label=&message=Pug&color=A86454&style=for-the-badge&logo=pug&logoColor=white&logoWidth=&labelColor=&link=">
         <br>
     </h1>
-
 	<h3><b><a href="https://www.youtube.com/watch?v=4UNfe44Vjfk">View Demo (Notification)</a></b></h3>
  	<h3><b><a href="https://www.youtube.com/watch?v=O4q2BlnYkHE">View Demo (Infrastructure as Code)</a></b></h3>
 </div>
@@ -15,6 +14,8 @@
 ## Description
 
 A website for Polytechnic students to file and retrieve lost items. Services utilised include ExpressJS, Sequelize, AWS and Handlebars.
+The website uses AWS EC2 for hosting but is currently down due to low cloud credit.
+If you are interested, you may run the CDK script by following the instructions below.
 
 ## Prerequisites
 - An unrestrictive AWS account
